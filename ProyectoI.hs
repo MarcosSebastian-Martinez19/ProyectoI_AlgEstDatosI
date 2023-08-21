@@ -191,3 +191,17 @@ esMultiplo n x = (mod x n == 0)
 --True
 --ghci> hayMultiplo 2 [9,145,11,23]
 --False
+
+--C
+sumaCuadrados :: Int -> Int
+sumaCuadrados n = sumatoria' [0..(n-1)] (^2)
+
+--Prueba
+--ghci> sumaCuadrados 2
+--1
+--ghci> sumaCuadrados 5
+--30
+
+--D
+existeDivisor :: Int -> [Int] -> Bool
+existeDivisor n [] = False
