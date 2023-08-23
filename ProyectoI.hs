@@ -239,3 +239,14 @@ factorial' n = productoria [1..n]
 --120
 --ghci> factorial' 3
 --6
+
+factorial'' :: Int -> Int
+factorial'' n = productoria' [1..n] (\x -> x * 1)
+
+multiplicaPrimos :: [Int] -> Int
+multiplicaPrimos xs = productoria' (listaPrimos xs) (*1)
+
+listaPrimos :: [Int] -> [Int]
+listaPrimos [] = []
+listaPrimos (x:xs) | (esPrimo x == True) = (x : esPrimoxs xs)
+                 | (esPrimo x == False) = esPrimoxs xs 
