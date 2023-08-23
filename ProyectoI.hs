@@ -248,5 +248,42 @@ multiplicaPrimos xs = productoria' (listaPrimos xs) (*1)
 
 listaPrimos :: [Int] -> [Int]
 listaPrimos [] = []
-listaPrimos (x:xs) | (esPrimo x == True) = (x : esPrimoxs xs)
-                 | (esPrimo x == False) = esPrimoxs xs 
+listaPrimos (x:xs) | (esPrimo x == True) = (x : listaPrimos xs)
+                 | (esPrimo x == False) = listaPrimos xs 
+
+--esFib :: Int -> Bool
+--esFib n = existe' [n..n] fib
+
+fib :: Int -> Int
+fib 0 = 0
+fib 1 = 1 
+fib n = (fib (n-1) + fib (n-2))
+
+
+--Programar la funci ́on esFib :: Int -> Bool, que dado un entero n, devuelve True
+--si y s ́olo si n est ́a en la sucesi ́on de Fibonacci.
+--Ayuda: Realizar una funci ́on auxiliar fib :: Int -> Int que dado un n devuelva el
+--n- ́esimo elemento de la sucesi ́on.
+
+-- 8
+duplicado :: [Int] -> [Int]
+duplicado [] = []
+duplicado (x:xs) = x * 2 : duplicado xs
+
+mapx2 :: [Int] -> [Int]
+mapx2 xs = map (*2) xs
+
+-- 9
+filterPrimos :: [Int] -> [Int]
+filterPrimos (x:xs) | (esPrimo x == True) = (x : filterPrimos xs)
+                 | (esPrimo x == False) = filterPrimos xs 
+
+filterPrimos' :: [Int] -> [Int]
+filterPrimos' xs = filter (esPrimo) xs
+
+-- 10
+
+primIgualA :: (Eq a) => a -> [a] -> [a]
+primIgualA n [] = []
+primIgualA n (x:xs) | (x == n) = x : (primIgualA n xs)
+                    | (x /= n) = []
