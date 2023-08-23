@@ -1,4 +1,5 @@
 -- Ejercicio 1
+
 -- A
 esCero :: Int -> Bool
 esCero x = x == 0
@@ -19,7 +20,7 @@ esPositivo x = x > 0
 --ghci> esPositivo 7
 --True
 
---C
+-- C
 esVocal :: Char -> Bool
 esVocal x = x `elem` ['a', 'e', 'i', 'o', 'u']
 
@@ -65,7 +66,6 @@ productoria (x:xs) = x * (productoria xs)
 --60
 
 -- D
-
 factorial :: Int -> Int
 factorial 0 = 1
 factorial n = n * (factorial (n-1))
@@ -77,7 +77,6 @@ factorial n = n * (factorial (n-1))
 --2
 
 -- E
-
 promedio :: [Int] -> Int
 promedio [] = 0
 promedio (x:xs) = div (sumatoria xs) (length xs)
@@ -102,8 +101,8 @@ pertenece x (y:ys) | x == y = True
 --False
 
 -- Ejercicio 4
--- A
 
+-- A
 paratodo' :: [a] -> (a -> Bool) -> Bool
 paratodo' [] f = True
 paratodo' (x:xs) f = f x && paratodo' xs f
@@ -115,7 +114,6 @@ paratodo' (x:xs) f = f x && paratodo' xs f
 --False
 
 -- B
-
 existe' :: [a] -> (a -> Bool) -> Bool
 existe' [] f = False
 existe' (x:xs) f = f x || existe' xs f
@@ -127,12 +125,11 @@ existe' (x:xs) f = f x || existe' xs f
 --False
 
 -- C
-
 sumatoria' :: [a] -> (a -> Int) -> Int
 sumatoria' [] f = 0
 sumatoria' (x:xs) f = f x + (sumatoria' xs f)
 
--- auxi1
+-- Auxi1
 por2 :: Int -> Int
 por2 x = x*2
 
@@ -142,6 +139,7 @@ por2 x = x*2
 --ghci> sumatoria' [15,2,5] por2
 --44
 
+-- D
 productoria' :: [a] -> (a -> Int) -> Int
 productoria' [] f = 1
 productoria' (x:xs) f = f x * (productoria' xs f)
@@ -165,11 +163,11 @@ paratodo'' xs = (paratodo' xs id)
 
 -- Ejercicio 6
 
---A
+-- A
 todosPares :: [Int] -> Bool
 todosPares xs = paratodo' xs esPar
 
--- auxi2
+-- Auxi2
 esPar :: Int -> Bool
 esPar x = mod x 2 == 0
 
@@ -179,10 +177,11 @@ esPar x = mod x 2 == 0
 --ghci> todosPares [2,4,5]
 --False
 
---B
+-- B
 hayMultiplo :: Int -> [Int] -> Bool
 hayMultiplo y xs = existe' xs (esMultiplo y)
 
+-- Auxi3
 esMultiplo :: Int -> Int -> Bool
 esMultiplo n x = (mod x n == 0)
 
@@ -192,16 +191,51 @@ esMultiplo n x = (mod x n == 0)
 --ghci> hayMultiplo 2 [9,145,11,23]
 --False
 
---C
+-- C
 sumaCuadrados :: Int -> Int
-sumaCuadrados n = sumatoria' [0..(n-1)] (^2)
+sumaCuadrados n = sumatoria' [0..(n-1)] (numeroCuadrado)
 
---Prueba
+-- Auxi4
+numeroCuadrado :: Int -> Int
+numeroCuadrado n = n * n
+
+-- Prueba
 --ghci> sumaCuadrados 2
 --1
 --ghci> sumaCuadrados 5
 --30
 
---D
+-- D
 existeDivisor :: Int -> [Int] -> Bool
-existeDivisor n [] = False
+existeDivisor n (xs) = existe' xs (esDivisor n)
+
+-- Auxi5
+esDivisor :: Int -> Int -> Bool
+esDivisor n m = (mod n m == 0)
+
+-- Prueba
+--ghci> existeDivisor 5 [10,49,35,80]
+--False
+--ghci> existeDivisor 8 [2,3,5,7,4]
+--True
+
+-- E
+esPrimo:: Int -> Bool
+esPrimo n = n > 1 && not (existeDivisor n [2..(n-1)])
+
+-- Prueba
+--ghci> esPrimo 5
+--True
+--ghci> esPrimo 10
+--False
+
+-- F
+factorial' :: Int -> Int
+factorial' 0 = 1
+factorial' n = productoria [1..n]
+
+-- Prueba
+--ghci> factorial' 5
+--120
+--ghci> factorial' 3
+--6
