@@ -309,6 +309,16 @@ filterPrimos' xs = filter (esPrimo) xs
 --ghci> filterPrimos' [8,9,3,7,15,13,19]
 --[3,7,13,19]
 
+--9c
+multiplicaPrimos' :: [Int] -> Int
+multiplicaPrimos' xs = productoria (filter esPrimo (xs))
+
+-- Prueba
+--ghci> multiplicaPrimos' [1,2,6,5,7]
+--70
+--ghci> multiplicaPrimos' [3,5,11]
+--165
+
 -- 10
 
 primIgualesA :: (Eq a) => a -> [a] -> [a]
