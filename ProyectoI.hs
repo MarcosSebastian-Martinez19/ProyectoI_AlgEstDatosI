@@ -232,58 +232,95 @@ esPrimo n = n > 1 && not (existeDivisor n [2..(n-1)])
 -- F
 factorial' :: Int -> Int
 factorial' 0 = 1
-factorial' n = productoria [1..n]
-
+factorial' n = productoria' [1..n] id
 -- Prueba
 --ghci> factorial' 5
 --120
 --ghci> factorial' 3
 --6
 
-factorial'' :: Int -> Int
-factorial'' n = productoria' [1..n] (\x -> x * 1)
-
+-- G
 multiplicaPrimos :: [Int] -> Int
-multiplicaPrimos xs = productoria' (listaPrimos xs) (*1)
+multiplicaPrimos xs = productoria' (listaPrimos xs) id
 
 listaPrimos :: [Int] -> [Int]
 listaPrimos [] = []
 listaPrimos (x:xs) | (esPrimo x == True) = (x : listaPrimos xs)
                  | (esPrimo x == False) = listaPrimos xs 
 
+-- Prueba
+--ghci> multiplicaPrimos [1,2,6,5,7]
+--70
+--ghci> multiplicaPrimos [3,5,11]
+--165
+
+-- H
+--existe' (x:xs) f = f x || existe' xs f
 --esFib :: Int -> Bool
---esFib n = existe' [n..n] fib
+--esFib n = existe' succFibonacci 
 
-fib :: Int -> Int
-fib 0 = 0
-fib 1 = 1 
-fib n = (fib (n-1) + fib (n-2))
+--succFibonacci :: [Int]
+--succFibonacci = [fib n | n <- [0..10]]
 
-
---Programar la funci ́on esFib :: Int -> Bool, que dado un entero n, devuelve True
---si y s ́olo si n est ́a en la sucesi ́on de Fibonacci.
---Ayuda: Realizar una funci ́on auxiliar fib :: Int -> Int que dado un n devuelva el
---n- ́esimo elemento de la sucesi ́on.
+--fib :: Int -> Int
+--fib 0 = 0
+--fib 1 = 1 
+--fib n = (fib (n-1) + fib (n-2))
 
 -- 8
 duplicado :: [Int] -> [Int]
 duplicado [] = []
 duplicado (x:xs) = x * 2 : duplicado xs
 
+-- Prueba
+--ghci> duplicado [2,3,15,6]
+--[4,6,30,12]
+--ghci> duplicado [5,20,100]
+--[10,40,200]
+
 mapx2 :: [Int] -> [Int]
 mapx2 xs = map (*2) xs
 
+--Prueba
+--ghci> mapx2 [2,3,15,6]
+--[4,6,30,12]
+--ghci> mapx2 [5,20,100]
+--[10,40,200]
+
+
 -- 9
 filterPrimos :: [Int] -> [Int]
+filterPrimos [] = []
 filterPrimos (x:xs) | (esPrimo x == True) = (x : filterPrimos xs)
                  | (esPrimo x == False) = filterPrimos xs 
+
+-- Prueba
+--ghci> filterPrimos [1,5,2,3,17,11,20]
+--[5,2,3,17,11]
+--ghci> filterPrimos [8,9,3,7,15,13,19]
+--[3,7,13,19]
 
 filterPrimos' :: [Int] -> [Int]
 filterPrimos' xs = filter (esPrimo) xs
 
+-- Prueba
+--ghci> filterPrimos' [1,5,2,3,17,11,20]
+--[5,2,3,17,11]
+--ghci> filterPrimos' [8,9,3,7,15,13,19]
+--[3,7,13,19]
+
 -- 10
 
-primIgualA :: (Eq a) => a -> [a] -> [a]
-primIgualA n [] = []
-primIgualA n (x:xs) | (x == n) = x : (primIgualA n xs)
+primIgualesA :: (Eq a) => a -> [a] -> [a]
+primIgualesA n [] = []
+primIgualesA n (x:xs) | (x == n) = x : (primIgualesA n xs)
                     | (x /= n) = []
+
+--ghci> primIgualesA 3 [3,3,4,1]
+--[3,3]
+--ghci> primIgualesA 3 [4,3,3,4,1]
+--[]
+--ghci> primIgualesA 3 []
+--[]
+--ghci> primIgualesA 'a' "aaadaa"
+--"aaa"
