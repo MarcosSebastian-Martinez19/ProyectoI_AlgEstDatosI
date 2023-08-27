@@ -255,17 +255,46 @@ listaPrimos (x:xs) | (esPrimo x == True) = (x : listaPrimos xs)
 --165
 
 -- H
---existe' (x:xs) f = f x || existe' xs f
---esFib :: Int -> Bool
---esFib n = existe' succFibonacci 
+esFib :: Int -> Bool
+esFib n = existe' succFibonacci (==n)
 
---succFibonacci :: [Int]
---succFibonacci = [fib n | n <- [0..10]]
+succFibonacci :: [Int]
+succFibonacci = [fib n | n <- [0..]]
 
---fib :: Int -> Int
---fib 0 = 0
---fib 1 = 1 
---fib n = (fib (n-1) + fib (n-2))
+fib :: Int -> Int
+fib 0 = 0
+fib 1 = 1 
+fib n = (fib (n-1) + fib (n-2))
+
+-- Prueba
+--ghci> esFib 2
+--True
+--ghci> esFib 5
+--True
+--ghci> esFib 9
+--False
+--ghci> esFib 11
+--False
+
+--I
+todosFib ::[Int] -> Bool
+todosFib [] = True
+todosFib (x:xs) = (esFib x) && (todosFib xs)
+
+-- Prueba
+--ghci> todosFib [0,1,2,5,8,13,21,55,34]
+--True
+--ghci> todosFib [0,1,2,5,11]
+--False
+
+--7
+-- Función map
+-- Lo que hace esta función es dada una lista y una función te devuelve una lista con la función aplicada a cada uno de los elementos de la lista.
+-- La expresión map succ [1, -4, 6, 2, -8], donde succ n = n + 1. Lo que pasa es que a cada elemento de la lista le aplica la función del sucesor y la lista resultante sería [2, -3, 7, 3, -7]
+
+-- Función filter
+-- Lo que hace esta función es dada una lista y una condición te devuelve una lista con los elementos que cumplen con la condición.
+-- La expresión filter esPositivo [1, -4, 6. 2. -8]. Lo que pasa es que verifica que cada elemento de la lista sea positivo y los mantiene en la lista. Resultando la siguiente lista [1, 6, 2]
 
 -- 8
 duplicado :: [Int] -> [Int]
@@ -352,8 +381,48 @@ primIgualesA' n = takeWhile (==n)
 --"aaa"
 
 -- 11
+-- A
 
---primIguales :: (Eq a) => [a] -> [a]
---primIguales [] = []
---primIguales (x:y:xs) | (x == y) = x : y : (primIguales xs)
---                    | (x /= y) = (primIguales xs)
+primIguales :: (Eq a) => [a] -> [a]
+primIguales [] = []
+primIguales [x] = [x]
+primIguales (x:xs) | (x == (head xs)) = x : (primIguales xs)
+                    | otherwise = [x]
+
+-- Prueba
+--ghci> primIguales [3,3,4,1]
+--[3,3]
+--ghci> primIguales [4,3,3,4,1]
+--[4]
+--ghci> primIguales []
+--[]
+--ghci> primIguales "aaadaa"
+--"aaa"
+--ghci> primIguales "a"
+--"a"
+--ghci> primIguales [4]
+--[4]
+--ghci> primIguales ""
+--""
+
+-- B
+
+primIguales' :: (Eq a) => [a] -> [a]
+primIguales' [] = []
+primIguales' (x:xs) = primIgualesA (x) (x:xs)
+
+-- Prueba
+--ghci> primIguales' [3,3,4,1]
+--[3,3]
+--ghci> primIguales' [4,3,3,4,1]
+--[4]
+--ghci> primIguales' []
+--[]
+--ghci> primIguales' "aaadaa"
+--"aaa"
+--ghci> primIguales' "a"
+--"a"
+--ghci> primIguales' [4]
+--[4]
+--ghci> primIguales' ""
+--""
