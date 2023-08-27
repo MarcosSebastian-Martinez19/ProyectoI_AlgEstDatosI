@@ -309,7 +309,7 @@ filterPrimos' xs = filter (esPrimo) xs
 --ghci> filterPrimos' [8,9,3,7,15,13,19]
 --[3,7,13,19]
 
---9c
+-- 9c
 multiplicaPrimos' :: [Int] -> Int
 multiplicaPrimos' xs = productoria (filter esPrimo (xs))
 
@@ -321,11 +321,13 @@ multiplicaPrimos' xs = productoria (filter esPrimo (xs))
 
 -- 10
 
+-- A
 primIgualesA :: (Eq a) => a -> [a] -> [a]
 primIgualesA n [] = []
 primIgualesA n (x:xs) | (x == n) = x : (primIgualesA n xs)
                     | (x /= n) = []
 
+-- Prueba
 --ghci> primIgualesA 3 [3,3,4,1]
 --[3,3]
 --ghci> primIgualesA 3 [4,3,3,4,1]
@@ -334,3 +336,24 @@ primIgualesA n (x:xs) | (x == n) = x : (primIgualesA n xs)
 --[]
 --ghci> primIgualesA 'a' "aaadaa"
 --"aaa"
+
+-- B
+primIgualesA' :: (Eq a) => a -> [a] -> [a]
+primIgualesA' n = takeWhile (==n)
+
+-- Prueba
+--ghci> primIgualesA' 3 [3,3,4,1]
+--[3,3]
+--ghci> primIgualesA' 3 [4,3,3,4,1]
+--[]
+--ghci> primIgualesA' 3 []
+--[]
+--ghci> primIgualesA' 'a' "aaadaa"
+--"aaa"
+
+-- 11
+
+--primIguales :: (Eq a) => [a] -> [a]
+--primIguales [] = []
+--primIguales (x:y:xs) | (x == y) = x : y : (primIguales xs)
+--                    | (x /= y) = (primIguales xs)
