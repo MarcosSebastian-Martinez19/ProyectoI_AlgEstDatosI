@@ -430,3 +430,63 @@ primIguales' (x:xs) = primIgualesA (x) (x:xs)
 cuantGen :: (b -> b -> b) -> b -> [a] -> (a -> b) -> b
 cuantGen op z [] t = z
 cuantGen op z (x:xs) t = (t x) `op` (cuantGen op z xs t)
+
+-- Prueba
+--ghci> cuantGen (+) 0 [] (+0)
+--0
+--ghci> cuantGen (*) 1 [] (+0)
+--1
+--ghci> cuantGen (&&) True [] (==True)
+--True
+--ghci> cuantGen (||) False [] (==False)
+--False
+
+--ghci> cuantGen (+) 0 [1,3,5] (*2)
+--18
+--ghci> cuantGen (*) 1 [1,3,5] (*2)
+--120
+--ghci> cuantGen (&&) True [True, False, True] (==True)
+--False
+--ghci> cuantGen (&&) True [True, True, True] (==True)
+--True
+--ghci> cuantGen (||) False [False, True, False] (==False)
+--True
+--ghci> cuantGen (||) False [True, True, True] (==False)
+--False
+
+
+paratodo''' :: [a] -> (a -> Bool) -> Bool
+paratodo''' xs f = cuantGen (&&) True xs f 
+
+-- Prueba
+--ghci> paratodo''' [0,0,0,0] esCero
+--True
+--ghci> paratodo''' "hola" esVocal
+--False
+
+existe''' :: [a] -> (a -> Bool) -> Bool
+existe''' xs f = cuantGen (||) False xs f
+
+-- Prueba
+--ghci> existe''' [0,0,1,0] esCero
+--True
+--ghci> existe''' "tnt" esVocal
+--False
+
+sumatoria''' :: [a] -> (a -> Int) -> Int
+sumatoria''' xs f = cuantGen (+) 0 xs f
+
+-- Prueba
+--ghci> sumatoria''' [1,2,3] (*2)
+--12
+--ghci> sumatoria''' [15,2,5] (*2)
+--44
+
+productoria''' :: [a] -> (a -> Int) -> Int
+productoria''' xs f = cuantGen (*) 1 xs f
+
+-- Prueba
+--ghci> productoria''' [1,2,3] (*2)
+--48
+--ghci> productoria''' [3,4,10] (*2)
+--960
