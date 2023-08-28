@@ -425,3 +425,8 @@ primIguales' (x:xs) = primIgualesA (x) (x:xs)
 --[4]
 --ghci> primIguales' ""
 --""
+
+--12
+cuantGen :: (b -> b -> b) -> b -> [a] -> (a -> b) -> b
+cuantGen op z [] t = z
+cuantGen op z (x:xs) t = (t x) `op` (cuantGen op z xs t)
