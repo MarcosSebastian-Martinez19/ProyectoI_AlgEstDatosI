@@ -490,3 +490,99 @@ productoria''' xs f = cuantGen (*) 1 xs f
 --48
 --ghci> productoria''' [3,4,10] (*2)
 --960
+
+
+-- 13
+distanciaEdicion :: [Char] -> [Char] -> Int
+distanciaEdicion [] ys = length ys
+distanciaEdicion xs [] = length xs
+distanciaEdicion (x:xs) (y:ys)  | x == y = distanciaEdicion xs ys
+                                | x /= y = 1 + distanciaEdicion xs ys
+
+-- Prueba
+--ghci> distanciaEdicion "agua" "tierra"
+--6
+--ghci> distanciaEdicion "agua" "agua"
+--0
+--ghci> distanciaEdicion "agua" ""
+--4
+--ghci> distanciaEdicion "" "tierra"
+--6
+
+-- 14
+primQueCumplen :: [a] -> ( a -> Bool ) -> [a]
+primQueCumplen [] f = []
+primQueCumplen (x:xs) f | (f x == True) = x : (primQueCumplen xs f)
+                        | (f x == False) = [] 
+
+-- Prueba
+--ghci> primQueCumplen [0,1,2,3,4] (==0)
+--[0]
+--ghci> primQueCumplen [0,0,2,0,4] (==0)
+--[0,0]
+--ghci> primQueCumplen ['a','b','t','u'] esVocal
+--"a"
+--ghci> primQueCumplen ['c','b','t','u'] esVocal
+--""
+--ghci> primQueCumplen [] esVocal
+--""
+--ghci> primQueCumplen [] (==0)
+--[]
+
+-- 15
+
+--a) f :: (a, b) -> ...
+--f (x , y) = ...
+-- Tipo de la subexpresión es 2-upla
+-- Tipa bien. El patrón si cubre todos los casos de definición.
+
+--b) f :: [(a, b)] -> ...
+--f (a , b) = ...
+-- Esta función no tipa. Para que tipe debería ser ((x,y):xs).
+-- El tipo de la subexpresion es lista de 2-uplas.
+-- No cubren todos los casos.
+
+--c) f :: [(a, b)] -> ...
+--f (x:xs) = ...
+--Esta función no tipa. Para que tipe debería ser ((x,y):xs).
+-- Tipo de la subexpresion es lista de 2-uplas. 
+-- No cubren todos los casos.
+
+--d) f :: [(a, b)] -> ...
+--f ((x, y) : ((a, b) : xs)) = ...
+-- Tipo de la subexpresion es lista de 2-uplas.
+-- Esta función tipa.
+-- No cubren todos los casos.
+
+--e) f :: [(Int, a)] -> ...
+--f [(0, a)] = ...
+-- El tipo de la subexpresion es lista de 2-uplas, con el primer elemento de tipo Int.
+-- Esta función tipa.
+-- No cubren todos los casos.
+
+--f ) f :: [(Int, a)] -> ...
+--f ((x, 1) : xs) = ...
+
+--g) f :: (Int -> Int) -> Int -> ...
+--f a b = ...
+
+--h) f :: (Int -> Int) -> Int -> ...
+--f a 3 = ...
+
+--i) f :: (Int -> Int) -> Int -> ...
+--f 0 1 2 = ...
+
+-- 16
+--a) f :: (a, b) -> b
+--f (x,y) = y
+--f (x,y) = id y
+
+--b) f :: (a, b) -> c
+-- f (x,y) = z
+-- f (x,y) = id z
+
+--c) f :: (a -> b) -> a -> b
+--f (x, y) x = y
+
+--d) f :: (a -> b) -> [a] -> [b]
+-- f (x,y) [x] = [y]
