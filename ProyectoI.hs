@@ -256,10 +256,10 @@ listaPrimos (x:xs) | (esPrimo x == True) = (x : listaPrimos xs)
 
 -- H
 esFib :: Int -> Bool
-esFib n = existe' succFibonacci (==n)
+esFib n = existe' (succFibonacci (n+1)) (==n)
 
-succFibonacci :: [Int]
-succFibonacci = [fib n | n <- [0..]]
+succFibonacci :: Int -> [Int]
+succFibonacci n = [fib n | n <- [0..n]]
 
 fib :: Int -> Int
 fib 0 = 0
@@ -277,9 +277,8 @@ fib n = (fib (n-1) + fib (n-2))
 --False
 
 --I
-todosFib ::[Int] -> Bool
-todosFib [] = True
-todosFib (x:xs) = (esFib x) && (todosFib xs)
+todosFib :: [Int] -> Bool
+todosFib xs = paratodo' xs esFib
 
 -- Prueba
 --ghci> todosFib [0,1,2,5,8,13,21,55,34]
