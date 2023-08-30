@@ -286,7 +286,8 @@ todosFib xs = paratodo' xs esFib
 --ghci> todosFib [0,1,2,5,11]
 --False
 
---7
+-- Ejercicio 7
+
 -- Función map
 -- Lo que hace esta función es dada una lista y una función te devuelve una lista con la función aplicada a cada uno de los elementos de la lista.
 -- La expresión map succ [1, -4, 6, 2, -8], donde succ n = n + 1. Lo que pasa es que a cada elemento de la lista le aplica la función del sucesor y la lista resultante sería [2, -3, 7, 3, -7]
@@ -295,7 +296,7 @@ todosFib xs = paratodo' xs esFib
 -- Lo que hace esta función es dada una lista y una condición te devuelve una lista con los elementos que cumplen con la condición.
 -- La expresión filter esPositivo [1, -4, 6. 2. -8]. Lo que pasa es que verifica que cada elemento de la lista sea positivo y los mantiene en la lista. Resultando la siguiente lista [1, 6, 2]
 
--- 8
+-- Ejercicio 8
 duplicado :: [Int] -> [Int]
 duplicado [] = []
 duplicado (x:xs) = x * 2 : duplicado xs
@@ -316,7 +317,7 @@ mapx2 xs = map (*2) xs
 --[10,40,200]
 
 
--- 9
+-- Ejercicio 9
 filterPrimos :: [Int] -> [Int]
 filterPrimos [] = []
 filterPrimos (x:xs) | (esPrimo x == True) = (x : filterPrimos xs)
@@ -337,7 +338,7 @@ filterPrimos' xs = filter (esPrimo) xs
 --ghci> filterPrimos' [8,9,3,7,15,13,19]
 --[3,7,13,19]
 
--- 9c
+-- Ejercicio 9c
 multiplicaPrimos' :: [Int] -> Int
 multiplicaPrimos' xs = productoria (filter esPrimo (xs))
 
@@ -347,7 +348,7 @@ multiplicaPrimos' xs = productoria (filter esPrimo (xs))
 --ghci> multiplicaPrimos' [3,5,11]
 --165
 
--- 10
+-- Ejercicio 10
 
 -- A
 primIgualesA :: (Eq a) => a -> [a] -> [a]
@@ -379,7 +380,7 @@ primIgualesA' n = takeWhile (==n)
 --ghci> primIgualesA' 'a' "aaadaa"
 --"aaa"
 
--- 11
+-- Ejercicio 11
 -- A
 
 primIguales :: (Eq a) => [a] -> [a]
@@ -426,7 +427,7 @@ primIguales' (x:xs) = primIgualesA (x) (x:xs)
 --ghci> primIguales' ""
 --""
 
---12
+-- Ejercicio 12
 cuantGen :: (b -> b -> b) -> b -> [a] -> (a -> b) -> b
 cuantGen op z [] t = z
 cuantGen op z (x:xs) t = (t x) `op` (cuantGen op z xs t)
@@ -492,7 +493,7 @@ productoria''' xs f = cuantGen (*) 1 xs f
 --960
 
 
--- 13
+-- Ejercicio 13
 distanciaEdicion :: [Char] -> [Char] -> Int
 distanciaEdicion [] ys = length ys
 distanciaEdicion xs [] = length xs
@@ -509,7 +510,7 @@ distanciaEdicion (x:xs) (y:ys)  | x == y = distanciaEdicion xs ys
 --ghci> distanciaEdicion "" "tierra"
 --6
 
--- 14
+-- Ejercicio 14
 primQueCumplen :: [a] -> ( a -> Bool ) -> [a]
 primQueCumplen [] f = []
 primQueCumplen (x:xs) f | (f x == True) = x : (primQueCumplen xs f)
@@ -528,61 +529,3 @@ primQueCumplen (x:xs) f | (f x == True) = x : (primQueCumplen xs f)
 --""
 --ghci> primQueCumplen [] (==0)
 --[]
-
--- 15
-
---a) f :: (a, b) -> ...
---f (x , y) = ...
--- Tipo de la subexpresión es 2-upla
--- Tipa bien. El patrón si cubre todos los casos de definición.
-
---b) f :: [(a, b)] -> ...
---f (a , b) = ...
--- Esta función no tipa. Para que tipe debería ser ((x,y):xs).
--- El tipo de la subexpresion es lista de 2-uplas.
--- No cubren todos los casos.
-
---c) f :: [(a, b)] -> ...
---f (x:xs) = ...
---Esta función no tipa. Para que tipe debería ser ((x,y):xs).
--- Tipo de la subexpresion es lista de 2-uplas. 
--- No cubren todos los casos.
-
---d) f :: [(a, b)] -> ...
---f ((x, y) : ((a, b) : xs)) = ...
--- Tipo de la subexpresion es lista de 2-uplas.
--- Esta función tipa.
--- No cubren todos los casos.
-
---e) f :: [(Int, a)] -> ...
---f [(0, a)] = ...
--- El tipo de la subexpresion es lista de 2-uplas, con el primer elemento de tipo Int.
--- Esta función tipa.
--- No cubren todos los casos.
-
---f ) f :: [(Int, a)] -> ...
---f ((x, 1) : xs) = ...
-
---g) f :: (Int -> Int) -> Int -> ...
---f a b = ...
-
---h) f :: (Int -> Int) -> Int -> ...
---f a 3 = ...
-
---i) f :: (Int -> Int) -> Int -> ...
---f 0 1 2 = ...
-
--- 16
---a) f :: (a, b) -> b
---f (x,y) = y
---f (x,y) = id y
-
---b) f :: (a, b) -> c
--- f (x,y) = z
--- f (x,y) = id z
-
---c) f :: (a -> b) -> a -> b
---f (x, y) x = y
-
---d) f :: (a -> b) -> [a] -> [b]
--- f (x,y) [x] = [y]
