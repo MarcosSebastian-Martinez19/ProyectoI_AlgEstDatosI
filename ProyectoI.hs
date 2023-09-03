@@ -75,6 +75,8 @@ factorial n = n * (factorial (n-1))
 --120
 --ghci> factorial 2
 --2
+--ghci> factorial 1
+--1
 
 -- E
 promedio :: [Int] -> Int
@@ -86,6 +88,8 @@ promedio (x:xs) = div (sumatoria xs) (length xs)
 --6
 --ghci> promedio [6,5,6,9,9]
 --7
+--ghci> promedio []
+--0
 
 -- Ejercicio 3
 
@@ -98,6 +102,8 @@ pertenece x (y:ys) | x == y = True
 --ghci> pertenece 4 [2,4,6]
 --True
 --ghci> pertenece 6 [2,4,5]
+--False
+--ghci> pertenece 6 []
 --False
 
 -- Ejercicio 4
@@ -138,6 +144,8 @@ por2 x = x*2
 --12
 --ghci> sumatoria' [15,2,5] por2
 --44
+--ghci> sumatoria' [] por2
+--0
 
 -- D
 productoria' :: [a] -> (a -> Int) -> Int
@@ -149,6 +157,8 @@ productoria' (x:xs) f = f x * (productoria' xs f)
 --48
 --ghci> productoria' [3,4,10] por2
 --960
+--ghci> productoria' [] por2
+--1
 
 -- Ejercicio 5
 
@@ -446,7 +456,7 @@ cuantGen op z (x:xs) t = (t x) `op` (cuantGen op z xs t)
 --18
 --ghci> cuantGen (*) 1 [1,3,5] (*2)
 --120
---ghci> cuantGen (&&) True [True, False, True] (==True)
+--ghci> cuantGen (*) 1 [1,3,5] (*2)
 --False
 --ghci> cuantGen (&&) True [True, True, True] (==True)
 --True
@@ -509,6 +519,8 @@ distanciaEdicion (x:xs) (y:ys)  | x == y = distanciaEdicion xs ys
 --4
 --ghci> distanciaEdicion "" "tierra"
 --6
+--ghci> distanciaEdicion "" ""
+--0
 
 -- Ejercicio 14
 primQueCumplen :: [a] -> ( a -> Bool ) -> [a]
